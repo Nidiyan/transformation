@@ -10,5 +10,22 @@
     <h1>
         Welcome to Transformation
     </h1>
+
+    {% if excelName %}
+        <p> Successfully uploaded {{ excelName }}</p>
+    {% endif %}
+
+    <form method="POST" action="" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ form.as_table }}
+        <input type="submit" name="uploadFile" value="Submit">
+    </form>
+
+    <h4> Make able to select? </h4>
+    {% for script in scripts %}
+        <p>
+            {{ script }}
+        </p>
+    {% endfor %}
 </body>
 </html>
