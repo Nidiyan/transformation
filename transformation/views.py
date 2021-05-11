@@ -1,38 +1,29 @@
 from django.shortcuts import render
 from django.http import HttpResponse
 from django.template import loader
-from .forms import UploadFileForm
-from django.core.files.storage import FileSystemStorage
+from django.core.files.storage import default_storage
 
-from os import listdir
-from os.path import isfile, join
+from .helper import getScripts
 
 # @ get: '/'
 # @ description: index.html, saves files to MEDIA_ROOT
 def index(request):
-    scripts = getScripts("./scripts")
+    scripts = getScripts("/transformation/scripts")
     template = loader.get_template('transformation/index.html')
-    form = UploadFileForm()
 
     context = {
         'scripts': scripts,
-        'form': form,
     }
 
     if (request.method == 'POST'):
-        form = UploadFileForm(request.POST, request.FILES)
+        file = request.FILES['file']
+        fileName = default_storage.save(file.name, file)
+        chosenScript = request.POST.get('scripts')
 
-        fs = FileSystemStorage()
+        # Need to check how to match chosenscript with script in ./scripts
 
-        if (form.is_valid):
-            fs.save(request.FILES['f'].name, request.FILES['f'])
-            context['excelName'] = request.FILES['f'].name
-            return HttpResponse(template.render(context, request), status=200)
-
-    else:
-        form = UploadFileForm()
+        context['excelName'] = fileName
+        
         return HttpResponse(template.render(context, request), status=200)
-
-# Gets files at path
-def getScripts(path: str) -> list:
-    return [f for f in listdir(path) if isfile(join(path, f))]
+    else:
+        return HttpResponse(template.render(context, request), status=200)
