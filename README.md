@@ -2,4 +2,5 @@
 Django app to ingest and transform data files
 
 Developed in a Virtual Environment (venv) with the following packages
-- Django
+- Django -> Hosting
+- Pandas/Numpty -> Data transformation 
