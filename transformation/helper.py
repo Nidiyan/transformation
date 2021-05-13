@@ -1,13 +1,14 @@
 import subprocess
 import sys
+import glob
 
 from os import listdir, getcwd
-from os.path import isfile, join
+from os.path import isfile, join, basename
 
 
 # Gets files at path
 def getScripts(path: str) -> list:
-    return [getcwd(), path]
+    return [basename(x) for x in glob.glob(getcwd() + path + "/*.py")]
 
 def process(xlName: str, scriptName: str) -> bool:
     pExec = sys.executable

@@ -8,7 +8,7 @@ from .helper import getScripts, process
 # @ get: '/'
 # @ description: index.html, saves files to MEDIA_ROOT
 def index(request):
-    scripts = getScripts("transformation/scripts")
+    scripts = getScripts("/transformation/scripts")
     template = loader.get_template('transformation/index.html')
 
     context = {
@@ -20,6 +20,7 @@ def index(request):
         fileName = default_storage.save(file.name, file)
         chosenScript = request.POST.get('scripts')
 
+        # Need to check this logic -> tempatles/index.html
         if process(fileName, chosenScript):
             context['excelName'] = fileName
             context['success'] = True
