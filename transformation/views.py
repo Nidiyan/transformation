@@ -3,12 +3,12 @@ from django.http import HttpResponse
 from django.template import loader
 from django.core.files.storage import default_storage
 
-from .helper import getScripts
+from .helper import getScripts, process
 
 # @ get: '/'
 # @ description: index.html, saves files to MEDIA_ROOT
 def index(request):
-    scripts = getScripts("/transformation/scripts")
+    scripts = getScripts("transformation/scripts")
     template = loader.get_template('transformation/index.html')
 
     context = {
@@ -20,9 +20,12 @@ def index(request):
         fileName = default_storage.save(file.name, file)
         chosenScript = request.POST.get('scripts')
 
-        # Need to check how to match chosenscript with script in ./scripts
-
-        context['excelName'] = fileName
+        if process(fileName, chosenScript):
+            context['excelName'] = fileName
+            context['success'] = True
+        else:
+            context['excelName'] = fileName
+            context['success'] = True
         
         return HttpResponse(template.render(context, request), status=200)
     else:
