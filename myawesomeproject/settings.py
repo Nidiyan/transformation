@@ -127,5 +127,5 @@ STATIC_ROOT = join(BASE_DIR, 'static/')
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # Media Configureation
-MEDIA_ROOT = join(BASE_DIR, 'uploadedFiles')
+MEDIA_ROOT = join(BASE_DIR, "uploadedFiles")
 MEDIA_URL = 'media/'

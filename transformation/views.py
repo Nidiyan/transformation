@@ -8,7 +8,7 @@ from .helper import getScripts, process
 # @ get: '/'
 # @ description: index.html, saves files to MEDIA_ROOT
 def index(request):
-    scripts = getScripts("/transformation/scripts")
+    scripts = getScripts("transformation/scripts")
     template = loader.get_template('transformation/index.html')
 
     context = {

@@ -5,15 +5,17 @@ import glob
 from os import listdir, getcwd
 from os.path import isfile, join, basename
 
+initialPath = "/home/myawesomeproject/transformation/"
 
 # Gets files at path
 def getScripts(path: str) -> list:
-    return [basename(x) for x in glob.glob(getcwd() + path + "/*.py")]
+    newPath = initialPath + path
+    return [basename(x) for x in glob.glob(newPath + "/*.py")]
 
 def process(xlName: str, scriptName: str) -> bool:
     pExec = sys.executable
-    scriptPath = getcwd() + "/transformation/scripts/" + scriptName
-    xlPath = getcwd() + "/uploadedFiles/" + xlName
+    scriptPath = initialPath + "transformation/scripts/" + scriptName
+    xlPath = initialPath + "uploadedFiles/" + xlName
 
     result = subprocess.run([pExec, scriptPath, xlPath])
 
