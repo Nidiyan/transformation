@@ -5,7 +5,7 @@ import glob
 from os import listdir, getcwd
 from os.path import isfile, join, basename
 
-initialPath = "/home/myawesomeproject/transformation/"
+initialPath = getcwd() + "/"
 
 # Gets files at path
 def getScripts(path: str) -> list:
