@@ -11,6 +11,7 @@ initialPath = getcwd() + "/"
 def getScripts(path: str) -> list:
     return [basename(x) for x in glob.glob(path + "/*.py")]
 
+# Runs the python script against the xl file
 def process(xlName: str, scriptName: str, path: str) -> bool:
     pExec = sys.executable
     scriptPath = path + "transformation/scripts/" + scriptName

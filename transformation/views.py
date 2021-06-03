@@ -29,6 +29,8 @@ def index(request):
             context['excelName'] = fileName
             context['success'] = True
 
+            # "Content-Disposition" Header -> used to send files to user
+            # Downloads the file to the user
             with open(basePath + 'generatedFiles/' + fileName, 'rb') as fh:
                 response = HttpResponse(fh.read(), content_type='application/vnd.ms-excel')
                 response['Content-Disposition'] = 'inline; filename=' + fileName
