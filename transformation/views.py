@@ -15,18 +15,19 @@ def index(request):
         'scripts': scripts,
     }
 
+    # Processes the file uploaded
     if (request.method == 'POST'):
         file = request.FILES['file']
         fileName = default_storage.save(file.name, file)
         chosenScript = request.POST.get('scripts')
 
-        # Need to check this logic -> tempatles/index.html
+        # Need to check this logic -> templates/index.html
         if process(fileName, chosenScript):
             context['excelName'] = fileName
             context['success'] = True
         else:
             context['excelName'] = fileName
-            context['success'] = True
+            context['success'] = False
         
         return HttpResponse(template.render(context, request), status=200)
     else:
