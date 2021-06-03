@@ -9,13 +9,12 @@ initialPath = getcwd() + "/"
 
 # Gets files at path
 def getScripts(path: str) -> list:
-    newPath = initialPath + path
-    return [basename(x) for x in glob.glob(newPath + "/*.py")]
+    return [basename(x) for x in glob.glob(path + "/*.py")]
 
-def process(xlName: str, scriptName: str) -> bool:
+def process(xlName: str, scriptName: str, path: str) -> bool:
     pExec = sys.executable
-    scriptPath = initialPath + "transformation/scripts/" + scriptName
-    xlPath = initialPath + "uploadedFiles/" + xlName
+    scriptPath = path + "transformation/scripts/" + scriptName
+    xlPath = path + "uploadedFiles/" + xlName
 
     result = subprocess.run([pExec, scriptPath, xlPath])
 
