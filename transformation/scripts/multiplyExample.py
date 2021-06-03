@@ -18,4 +18,4 @@ df = pd.read_excel(pathToFile, engine='openpyxl')
 
 df['product'] = df['num1'] * df['num2']
 
-df.to_excel(initialPath + '/generatedFiles/excelTestOutput.xlsx', index=False)
+df.to_excel(initialPath + 'generatedFiles/excelTestOutput.xlsx', index=False)
