@@ -4,11 +4,13 @@ from django.template import loader
 from django.core.files.storage import default_storage
 from django.utils.encoding import smart_str
 
+import json
+
 from .helper import getScripts, process
 
 basePath = '/home/transformation/'
 
-# @ get: '/'
+# @ GET: '/'
 # @ description: index.html, saves files to MEDIA_ROOT
 def index(request):
     scripts = getScripts(basePath + "transformation/scripts")
@@ -43,3 +45,8 @@ def index(request):
         return HttpResponse(template.render(context, request), status=200)
     else:
         return HttpResponse(template.render(context, request), status=200)
+
+# @ POST: /getScripts
+def scripts(request):
+    scripts = getScripts(basePath + "transformation/scripts")
+    return HttpResponse(json.dumps(scripts), content_type="application/json", status=200)
